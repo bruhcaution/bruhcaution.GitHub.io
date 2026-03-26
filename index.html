@@ -3,40 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aural Music Player</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Music Player</title>
+    <style>
+        /* Add your styles here */
+        body { font-family: Arial, sans-serif; }
+        #album-art { width: 300px; height: 300px; background: gray; margin: 20px auto; }
+        #controls { display: flex; justify-content: center; margin: 20px; }
+        button { margin: 0 10px; }
+        #seek-bar { width: 100%; }
+        #equalizer { display: flex; justify-content: space-around; }
+    </style>
 </head>
 <body>
-    <div class="player">
-        <div class="album-art">
-            <img src="album-art.jpg" alt="Album Art">
+    <h1>Music Player</h1>
+    <div id="album-art"></div>
+    <audio id="audio" controls preload="auto">
+        <source src="path/to/your/audio/file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div id="controls">
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+        <button id="stop">Stop</button>
+    </div>
+    <input type="range" id="seek-bar" value="0" min="0" max="100">
+    <div id="time-display">
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+    </div>
+    <div id="equalizer">
+        <div>
+            <label for="slider1">Band 1</label>
+            <input type="range" id="slider1" min="0" max="100" value="50">
         </div>
-        <div class="controls">
-            <button class="play">Play</button>
-            <button class="pause">Pause</button>
-            <button class="next">Next</button>
-            <button class="prev">Previous</button>
+        <div>
+            <label for="slider2">Band 2</label>
+            <input type="range" id="slider2" min="0" max="100" value="50">
         </div>
-        <div class="volume">
-            <label for="volume-slider">Volume:</label>
-            <input type="range" id="volume-slider" min="0" max="100" value="50">
+        <div>
+            <label for="slider3">Band 3</label>
+            <input type="range" id="slider3" min="0" max="100" value="50">
         </div>
     </div>
-
-    <div class="modal" id="audio-settings-modal">
-        <div class="modal-content">
-            <span class="close" id="close-modal">&times;</span>
-            <h2>Audio Settings</h2>
-            <label for="audio-quality">Audio Quality:</label>
-            <select id="audio-quality">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-            <button id="save-settings">Save</button>
-        </div>
+    <button id="upload">Upload Audio</button>
+    <input type="file" id="file-input" accept="audio/*" style="display:none;">
+    <div id="settings-modal" style="display:none;">
+        <!-- Settings content here, excluding quality selector -->
     </div>
+    <script>
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('play');
+        const pauseButton = document.getElementById('pause');
+        const stopButton = document.getElementById('stop');
+        const seekBar = document.getElementById('seek-bar');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const durationDisplay = document.getElementById('duration');
+        const fileInput = document.getElementById('file-input');
 
-    <script src="script.js"></script>
+        playButton.addEventListener('click', () => { audio.play(); });
+        pauseButton.addEventListener('click', () => { audio.pause(); });
+        stopButton.addEventListener('click', () => { audio.pause(); audio.currentTime = 0; });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationDisplay.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            currentTimeDisplay.textContent = formatTime(audio.currentTime);
+            seekBar.value = (audio.currentTime / audio.duration) * 100;
+        });
+
+        seekBar.addEventListener('input', () => {
+            audio.currentTime = (seekBar.value / 100) * audio.duration;
+        });
+
+        document.getElementById('upload').addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const url = URL.createObjectURL(file);
+            audio.src = url;
+            audio.play();
+        });
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    </script>
 </body>
 </html>
