@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Webpage</title>
+    <title>Aural Music Player</title>
     <style>
-        /* Styles to manipulate the display */
-        input[type='file'] {
-            display: none;
-        }
+        #audio-upload { display: none; }
     </style>
 </head>
 <body>
-    <label for="file-upload" class="custom-file-upload">
-        ➕ Upload File
-    </label>
-    <input id="file-upload" type="file" />
-
-    <!-- Additional content here -->
+    <h1>Welcome to the Aural Music Player</h1>
+    <label for="audio-upload">Upload Audio</label>
+    <input type="file" id="audio-upload" accept="audio/*">
+    <script>
+        // JavaScript functionality for the music player goes here
+    </script>
 </body>
 </html>
