@@ -2,80 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Aural</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icon-192.png">
-
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Webpage</title>
+    <style>
+        /* Styles to manipulate the display */
+        input[type='file'] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="player-container">
-        <header>
-            <div class="header-top">
-                <span class="brand">AURAL</span>
-                <div class="header-actions">
-                    <label for="audio-upload" class="icon-btn">➕</label>
-                    <button id="settings-toggle" class="icon-btn">⚙️</button>
-                </div>
-            </div>
-            <input type="file" id="audio-upload" accept=".mp3, .flac, .m4a" multiple>
-        </header>
+    <label for="file-upload" class="custom-file-upload">
+        ➕ Upload File
+    </label>
+    <input id="file-upload" type="file" />
 
-        <main class="now-playing-view">
-            <div id="album-art-container" class="album-art">
-                <div id="art-placeholder">🎵</div>
-            </div>
-            
-            <div class="track-info">
-                <h2 id="track-name">Ready to play</h2>
-                <p id="artist-name">Upload music to begin</p>
-            </div>
-        </main>
-
-        <section class="controls-area">
-            <div class="scrubber-container">
-                <input type="range" id="seek-bar" value="0" step="0.1">
-                <div class="time-stamps">
-                    <span id="current-time">0:00</span>
-                    <span id="duration">0:00</span>
-                </div>
-            </div>
-
-            <div class="main-transport">
-                <button id="shuffle-btn" class="alt-btn">🔀</button>
-                <button id="prev-btn" class="nav-btn">⏮</button>
-                <button id="play-pause-btn" class="play-trigger">▶</button>
-                <button id="next-btn" class="nav-btn">⏭</button>
-                <button id="repeat-btn" class="alt-btn">🔁</button>
-            </div>
-
-            <div class="volume-container">
-                <span class="vol-icon">🔈</span>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8">
-                <span class="vol-icon">🔊</span>
-            </div>
-        </section>
-
-        <div id="settings-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Audio Settings</h3>
-                    <button id="close-settings">✕</button>
-                </div>
-                <div class="eq-container">
-                    <p>10-Band Equalizer</p>
-                    <div id="eq-sliders" class="eq-grid"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <audio id="audio-element" preload="auto"></audio>
-    <script src="app.js"></script>
+    <!-- Additional content here -->
 </body>
 </html>
